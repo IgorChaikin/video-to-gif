@@ -1,13 +1,17 @@
-const fluentFfmpeg = require('fluent-ffmpeg');
+const ffmpeg = require('fluent-ffmpeg');
+const path = require('path');
+require('dotenv').config();
+
 const { VIDEO_FILE_PATH } = require('../constants');
 
 const videoValidatorMiddleware = (req, res, next) => {
     if (!req.file) {
         return res.status(400).send('No file uploaded');
     }
+
     const filePath = path.join(VIDEO_FILE_PATH, req.file.filename);
 
-    fluentFfmpeg.ffprobe(filePath, (err, metadata) => {
+    ffmpeg.ffprobe(path.join(__dirname, '..', filePath), (err, metadata) => {
         if (err) {
             return res.status(500).send('Error processing video');
         }

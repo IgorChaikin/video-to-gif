@@ -1,0 +1,34 @@
+<div>
+    <form [formGroup]="form"
+          (submit)="uploadFile()"
+          class="upload__form">
+      <div class="upload__row">
+        <div class="upload__column">
+          <mat-form-field appearance="outline" class="upload__field" (click)="fileUploader.click()">
+            <mat-label>Attached file</mat-label>
+            <div class="upload__row">
+              <input matInput readonly formControlName="file">
+              <mat-icon color="primary">attach_file</mat-icon>
+            </div>
+            @if (form.controls['file'].invalid) {
+              <mat-error>This field required</mat-error>
+            }
+          </mat-form-field>
+
+          <input hidden type="file" accept="video/mp4,video/x-m4v,video/*" formControlName="file"
+                 (change)="onChange($event)" #fileUploader/>
+        </div>
+      </div>
+      <div class="upload__row">
+        <button mat-raised-button
+                [disabled]="loading$ | async"
+                type="submit"
+                color="primary">Convert
+        </button>
+      </div>
+    </form>
+
+    @if (convertedData$ | async; as converted) {
+        <a [href]="converted.href" [download]="converted?.download">{{converted?.download}}</a>
+    }
+</div>
