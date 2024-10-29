@@ -1,6 +1,6 @@
 ## Makefile commands to manage the app
 
-1. Init swarm master node on current machine:
+1. Init swarm manager node on current machine:
 
 `make init-swarm`
 
