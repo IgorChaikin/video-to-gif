@@ -29,7 +29,7 @@ build-frontend:
 build-backend:
 	@docker build -f ./dockerfiles/backend.Dockerfile -t video-to-gif-backend .
 deploy-images:
-	@API_PORT=$(API_PORT) && docker stack deploy -c ./docker-compose.yaml video-to-gif
+	@docker stack deploy -c ./docker-compose.yaml video-to-gif
 
 deploy: build-frontend build-backend deploy-images
 # ******* DEPLOY APP END *******
