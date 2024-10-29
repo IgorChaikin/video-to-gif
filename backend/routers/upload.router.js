@@ -23,16 +23,8 @@ uploadRouter.post('/', async (req, res) => {
         .on('end', () => {
             fs.unlinkSync(videoPath);
             return res.download(gifPath, (err) => {
-                // MYLOG
-                console.log('download finish');
-                // MYLOG END
-
-                if (err) {
-                    // MYLOG
-                    console.log(err);
-                    // MYLOG END
+                if (err) 
                     return res.status(500).send('Error downloading file');
-                }
                 fs.unlinkSync(gifPath);
             });
         })
