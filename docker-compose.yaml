@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: video-to-gif-frontend
+
+    networks:
+      - video-to-gif-network
+    ports:
+      - 4200:4200
+
+
+  backend:
+    image: video-to-gif-backend
+    hostname: video-to-gif-backend
+
+    volumes: 
+      - video-to-gif-vol:/app/uploads
+
+    networks:
+      - video-to-gif-network
+    ports:
+      - 3000:3000
+
+networks:
+  video-to-gif-network:
+    name: video-to-gif-network
+    external: true
+
+volumes:
+    video-to-gif-vol:
+        external: true

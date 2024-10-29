@@ -1,0 +1,45 @@
+:host {
+    .upload {
+      &__title {
+        text-align: center;
+      }
+  
+      &__row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        &_centred {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+      }
+  
+      &__column {
+        display: flex;
+        flex-direction: column;
+      }
+  
+      &__field {
+        padding: 5px;
+        width: 25em;
+      }
+
+      &__button {
+        &_right {
+            margin-left: 0.5em;
+        }
+
+        mat-icon {
+            margin: 0;
+        }
+      }
+
+      &__error {
+        color: rgb(255, 80, 0);
+        font-size: large;
+        margin: 0;
+      }
+    }
+}

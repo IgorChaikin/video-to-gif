@@ -1,13 +1,13 @@
 <div>
     <form [formGroup]="form"
           (submit)="uploadFile()"
-          class="upload__form">
+          class="upload__column">
       <div class="upload__row">
         <div class="upload__column">
           <mat-form-field appearance="outline" class="upload__field" (click)="fileUploader.click()">
-            <mat-label>Attached file</mat-label>
+            <mat-label>Video to convert</mat-label>
             <div class="upload__row">
-              <input matInput readonly formControlName="file">
+              <input matInput readonly [value]="fileName$ | async">
               <mat-icon color="primary">attach_file</mat-icon>
             </div>
             @if (form.controls['file'].invalid) {
@@ -15,20 +15,32 @@
             }
           </mat-form-field>
 
-          <input hidden type="file" accept="video/mp4,video/x-m4v,video/*" formControlName="file"
+          <!--<input hidden type="file" accept="video/mp4,video/x-m4v,video/*" formControlName="file"-->
+          <input hidden type="file" formControlName="file"
                  (change)="onChange($event)" #fileUploader/>
         </div>
       </div>
-      <div class="upload__row">
-        <button mat-raised-button
-                [disabled]="loading$ | async"
-                type="submit"
-                color="primary">Convert
-        </button>
+      <div class="upload__row_centred">
+        @if(error$ | async; as error) {
+          <p class="upload__error">ERROR {{error.status}}: {{error.message}}</p>
+        } @else {
+          @if ((fileName$ | async) && !(convertedData$ | async)) {
+            <button mat-raised-button
+                    [disabled]="form.invalid || (loading$ | async)"
+                    type="submit"
+                    color="primary">Convert
+            </button>
+          }
+  
+          @if (convertedData$ | async; as converted) {
+            <a mat-raised-button 
+              [href]="converted.href" 
+              [download]="converted?.download"
+              color="accent">
+              {{converted?.download}} <mat-icon>save_alt</mat-icon>
+            </a>
+          }
+        }
       </div>
     </form>
-
-    @if (convertedData$ | async; as converted) {
-        <a [href]="converted.href" [download]="converted?.download">{{converted?.download}}</a>
-    }
 </div>

@@ -12,10 +12,9 @@ const storage = multer.diskStorage({
         cb(null, VIDEO_FILE_PATH);
     },
     filename: (req, file, cb) => {
-        const {name, ext} = path.parse(file.originalname);
-        const suffix = getUuidV4();
-        const newName = `${name}_${suffix}${ext}`;
-        cb(null, newName);
+        const {ext} = path.parse(file.originalname);
+        const id = getUuidV4();
+        cb(null, `${id}${ext}`);
     }
 });
 const fileFilter = (req, file, cb) => {

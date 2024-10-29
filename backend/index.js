@@ -10,8 +10,8 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use('/upload', multerUploadMiddleware);
-app.use('/upload', videoValidatorMiddleware);
+app.post('/upload', multerUploadMiddleware);
+app.post('/upload', videoValidatorMiddleware);
 app.use('/upload', uploadRouter);
 
 const port = process.env.API_PORT;
